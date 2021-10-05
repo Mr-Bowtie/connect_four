@@ -7,13 +7,15 @@ class Game
   attr_accessor :player_1, :player_2, :board
 
   def initialize
-    @player_1 = Player.new(currently_playing: true)
-    @player_2 = Player.new
+    @player_1 = Player.new('x', currently_playing: true)
+    @player_2 = Player.new('o')
     @board = Board.new
   end
 
   def play_game
-    gameplay_turn until game_over?
+    until game_over?
+      gameplay_turn
+    end
     display_end_of_game #todo: implement
     play_again?
   end
