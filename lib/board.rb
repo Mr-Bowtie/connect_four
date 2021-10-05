@@ -20,7 +20,14 @@ class Board
     p grid
   end
 
-  def board_full?; end
+  def board_full?
+    grid.all? do |_, array|
+      array.all? { |el| el.class == String }
+    end
+  end
+
+  def winner?
+  end
 
   def add_piece(column, symbol) #todo: extract position finding ?
     position = grid[column].inject { |memo, space| memo > space.to_i ? memo : space }

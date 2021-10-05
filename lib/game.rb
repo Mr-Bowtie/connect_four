@@ -36,16 +36,12 @@ class Game
     end
   end
 
-  private
-
   def game_over?
-    return true if winner? || board.board_full?
+    return true if board.winner? || board.board_full?
     false
   end
 
   def display_end_of_game; end
-
-  def winner?; end
 
   def get_current_player
     for player in [player_1, player_2]
