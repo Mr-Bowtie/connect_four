@@ -17,7 +17,17 @@ class Board
   end
 
   def display_board
-    p grid
+    puts '-----------------------------'
+    1.upto(6) do |i|
+      grid.each do |column, array|
+        character = array[i - 1].class == String ? array[i - 1] : ' '
+        print "| #{character} |" if column == 1
+        print " #{character} |" if column.between?(2, 6)
+        print " #{character} |\n" if column == 7
+      end
+      puts '-----------------------------'
+    end
+    puts '  1   2   3   4   5   6   7  '
   end
 
   def board_full?
