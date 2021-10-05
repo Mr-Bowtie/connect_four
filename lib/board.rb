@@ -1,4 +1,6 @@
 class Board
+  attr_accessor :grid
+
   def initialize
     @grid = board_setup
   end
@@ -15,10 +17,14 @@ class Board
   end
 
   def display_board
-    p @grid
+    p grid
   end
 
   def board_full?; end
 
-  def add_piece(column); end
+  def add_piece(column, symbol) #todo: extract position finding ?
+    position = grid[column].inject { |memo, space| memo > space.to_i ? memo : space }
+    available_index = grid[column].index(position)
+    grid[column][available_index] = symbol
+  end
 end
