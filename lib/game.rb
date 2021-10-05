@@ -14,23 +14,17 @@ class Game
 
   def play_game
     gameplay_turn until game_over?
-    display_end_of_game
+    display_end_of_game #todo: implement
     play_again?
-  end
-
-  def game_over?
-    return true if winner? || board.board_full?
-    false
   end
 
   def gameplay_turn
     board.display_board # todo: implement method
-    move = get_current_player.get_move
-    board.add_piece(move)
+    player = get_current_player
+    move = player.get_move
+    board.add_piece(move, player.symbol)
     swap_players
   end
-
-  def display_end_of_game; end
 
   def play_again?
     loop do
@@ -41,6 +35,15 @@ class Game
       puts 'invalid input: yes, y, no, n only'
     end
   end
+
+  private
+
+  def game_over?
+    return true if winner? || board.board_full?
+    false
+  end
+
+  def display_end_of_game; end
 
   def winner?; end
 
