@@ -2,17 +2,20 @@
 
 require_relative '../lib/player'
 require_relative '../lib/board'
+require_relative '../lib/characters.rb'
 
 class Game
+  include Characters
   attr_accessor :player_1, :player_2, :board
 
   def initialize
-    @player_1 = Player.new('x', currently_playing: true)
-    @player_2 = Player.new('o')
+    @player_1 = Player.new(red_token, currently_playing: true)
+    @player_2 = Player.new(yellow_token)
     @board = Board.new
   end
 
   def play_game
+    display_welcome
     loop do
       gameplay_turn
       break if game_over?
@@ -42,6 +45,14 @@ class Game
   def game_over?
     return true if board.winner? || board.board_full?
     false
+  end
+
+  def display_welcome
+    system('clear')
+    puts 'Welcome to Connect Four'
+    puts "#{red_token}#{yellow_token}" * 12
+    puts 'press enter to start game'
+    gets
   end
 
   def display_end_of_game; end

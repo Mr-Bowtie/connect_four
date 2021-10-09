@@ -1,6 +1,7 @@
-require 'pry'
+require_relative 'characters.rb'
 
 class Board
+  include Characters
   attr_accessor :grid
 
   def initialize
@@ -24,15 +25,17 @@ class Board
   end
 
   def display_board
-    puts '-----------------------------'
+    system('clear')
+    puts '┌' + ('─' * 3) + (('┬' + ('─') * 3) * 6) + '┐'
     1.upto(6) do |i|
       grid.each do |column, array|
-        character = array[i - 1].class == String ? array[i - 1] : ' '
-        print "| #{character} |" if column == 1
-        print " #{character} |" if column.between?(2, 6)
-        print " #{character} |\n" if column == 7
+        character = array[i - 1].class == String ? array[i - 1] : empty_circle
+        print "│ #{character} │" if column == 1
+        print " #{character} │" if column.between?(2, 6)
+        print " #{character} │\n" if column == 7
       end
-      puts '-----------------------------'
+      puts '├' + ('─' * 3) + (('┼' + ('─') * 3) * 6) + '┤' if i.between?(1, 5)
+      puts '└' + ('─' * 3) + (('┴' + ('─') * 3) * 6) + '┘' if i == 6
     end
     puts '  1   2   3   4   5   6   7  '
   end
@@ -145,7 +148,3 @@ class Board
     grid[column][available_index] = symbol
   end
 end
-
-board = Board.new
-# p board.get_diagonals
-board.display_board
