@@ -16,20 +16,22 @@ class Game
 
   def play_game
     display_welcome
+    get_player_names
     loop do
       gameplay_turn
       break if game_over?
+      swap_players
     end
     display_end_of_game
-    play_again?
   end
 
   def gameplay_turn
-    board.display_board
     player = get_current_player
+    board.display_board
+    turn_display = "#{player.symbol}  #{player.name}'s turn  #{player.symbol}".center(45)
+    puts turn_display
     move = player.get_move
     board.add_piece(move, player.symbol)
-    swap_players
   end
 
   def play_again?
@@ -55,7 +57,22 @@ class Game
     gets
   end
 
-  def display_end_of_game; end
+  def display_end_of_game
+    board.display_board
+    if board.winner?
+      puts "#{get_current_player.name} wins! "
+    elsif board.board_full?
+      puts 'No moves left: Game Over'
+    end
+  end
+
+  def get_player_names
+    puts 'Enter name for player 1'
+    self.player_1.name = gets.chomp
+    puts ''
+    puts 'Enter name for player 2'
+    self.player_2.name = gets.chomp
+  end
 
   def get_current_player
     for player in [player_1, player_2]
