@@ -13,15 +13,16 @@ class Game
   end
 
   def play_game
-    until game_over?
+    loop do
       gameplay_turn
+      break if game_over?
     end
-    display_end_of_game #todo: implement
+    display_end_of_game
     play_again?
   end
 
   def gameplay_turn
-    board.display_board # todo: implement method
+    board.display_board
     player = get_current_player
     move = player.get_move
     board.add_piece(move, player.symbol)
