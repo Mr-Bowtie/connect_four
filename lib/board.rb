@@ -44,9 +44,6 @@ class Board
   end
 
   def winner?
-    # get arrays for columns, rows, diagonals
-    # merge into one super-array, each element being an array representing one column, row, or diagonal
-    # iterate over super array, calling four in a row on each array
     columns = get_columns
     return true if four_in_a_row?(columns)
 
@@ -58,22 +55,15 @@ class Board
 
     antediagonals = get_antediagonals(rows)
     return true if four_in_a_row?(antediagonals)
+
+    false
   end
 
   def four_in_a_row?(array)
-    cont_array = array.each_with_object([]) do |el, memo_arr|
-      if memo_arr.include?(el)
-        memo_arr << el
-      elsif array.index(el) == 0
-        memo_arr << el
-      else
-        unless memo_arr.empty?
-          memo_arr.pop
-        end
-        memo_arr << el
-      end
+    array.each do |sub|
+      cons_array = sub.each_cons(4).find { |arr| arr.uniq.size == 1 }
+      return true unless cons_array.nil?
     end
-    return true if cont_array.size == 4
     false
   end
 
