@@ -5,3 +5,4 @@ loop do
   connect_four.play_game
   break unless connect_four.play_again?
 end
+Game.new.display_goodbye

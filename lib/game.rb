@@ -66,6 +66,11 @@ class Game
     end
   end
 
+  def display_goodbye
+    puts 'Thanks for playing!'
+    puts 'Goodbye!'
+  end
+
   def get_player_names
     puts 'Enter name for player 1'
     self.player_1.name = gets.chomp
